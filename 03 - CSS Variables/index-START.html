@@ -21,6 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -43,8 +58,20 @@
       width: 100px;
     }
   </style>
-
   <script>
+    //selects the input controls within the div that has the control class
+    const inputs = document.querySelectorAll('.controls input');
+    function handleUpdate() {
+      //creates the suffix to add on to the updated blur/spacing value. Using the "data-" attribute, dataset adds these key/values to the "object"
+      const suffix = this.dataset.sizing || '';
+      //adds the amended property to the document using CSS variables. 
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+    //uses forEach to add an event listener to all the inputs and runs the function handleUpdate
+    
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
